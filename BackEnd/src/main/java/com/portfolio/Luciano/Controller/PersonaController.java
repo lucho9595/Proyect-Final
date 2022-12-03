@@ -37,7 +37,7 @@ public class PersonaController {
 
     ;
 
-    @DeleteMapping("persona/borrar/{id}")
+    @DeleteMapping("personas/borrar/{id}")
     //el pathVariable es para decir que el ID va a variar.
     public String deletePersona(@PathVariable Long id) {
         ipersonaService.deletePersona(id);
