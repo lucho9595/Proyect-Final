@@ -4,6 +4,7 @@ import com.portfolio.Luciano.Entity.Persona;
 import com.portfolio.Luciano.Interface.IPersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,58 +16,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//Con esto decimos que va a ser llamado por este localhost
 @CrossOrigin(origins = "http://localhost:4200")
 public class PersonaController {
-
-    @Autowired
-    IPersonaService ipersonaService;
-//cuando accedemos a esta ruta nos trae a todas las personas
-
+    @Autowired IPersonaService ipersonaService;
+    
     @GetMapping("personas/traer")
-    public List<Persona> getPersona() {
+    public List<Persona> getPersona(){
         return ipersonaService.getPersona();
     }
-
-    ;
-
-    //decimos desde el front guardame esto en la base de datos
-    @PostMapping("personas/crear")
-    //mandamos desde el body los datos del front al back
-    public String createPersona(@RequestBody Persona persona) {
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/personas/crear")
+    public String createPersona(@RequestBody Persona persona){
         ipersonaService.savePersona(persona);
         return "La persona fue creada correctamente";
     }
-
-    ;
-
-    @DeleteMapping("personas/borrar/{id}")
-    //el pathVariable es para decir que el ID va a variar.
-    public String deletePersona(@PathVariable Long id) {
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/personas/borrar/{id}")
+    public String deletePersona(@PathVariable Long id){
         ipersonaService.deletePersona(id);
-        return "La persona fue borrada";
+        return "La persona fue eliminada correctamente";
     }
-
-    ;
-
+    
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/personas/editar/{id}")
-    public Persona editPersona(
-            @PathVariable Long id,
-            @RequestParam("nombre") String nuevoNombre,
-            @RequestParam("apellido") String nuevoApellido,
-            @RequestParam("img") String nuevoImg) {
+    public Persona editPersona(@PathVariable Long id,
+                               @RequestParam("nombre") String nuevoNombre,
+                               @RequestParam("apellido") String nuevoApellido,
+                               @RequestParam("img") String nuevoImg){
         Persona persona = ipersonaService.findPersona(id);
+        
         persona.setNombre(nuevoNombre);
         persona.setApellido(nuevoApellido);
         persona.setImg(nuevoImg);
-
+        
         ipersonaService.savePersona(persona);
-
         return persona;
-    };
+    }
     
-    @GetMapping("/personas/traer/perfil")
+    @GetMapping("personas/traer/perfil")
     public Persona findPersona(){
         return ipersonaService.findPersona((long)1);
     }
-};
+   
+}

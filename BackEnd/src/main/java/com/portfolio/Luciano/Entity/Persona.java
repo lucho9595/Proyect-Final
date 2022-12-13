@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter @Setter 
 //con esto te ahorras de escribir cada getter
 // y setter de cada parametro.
+
 @Entity
 public class Persona {
 

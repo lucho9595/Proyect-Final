@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.portfolio.Luciano.Security.Entity;
 
 import java.util.HashSet;
@@ -19,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Usuario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -37,7 +32,7 @@ public class Usuario {
     private Set<Rol> roles = new HashSet<>();
 //Constructores
 
-    public Usuario() {
+    public Usuario(){
     }
 
     public Usuario(String nombre, String nombreUsuario, String email, String password) {
@@ -95,6 +90,5 @@ public class Usuario {
 
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
-    }
-    
+    }   
 }

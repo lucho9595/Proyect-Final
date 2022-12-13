@@ -24,6 +24,5 @@ public class RolService {
     //void quiere que no devuelve nada
     public void save(Rol rol){
         irolRepository.save(rol);
-    }
-            
+    }      
 }

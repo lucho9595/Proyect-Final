@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Rol {
+public class Rol{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,7 +21,6 @@ public class Rol {
     private RolNombre rolNombre;
     
     //constructor
-
     public Rol() {
     }
 
@@ -30,7 +29,6 @@ public class Rol {
     }
     
     //Getter y Setter
-
     public int getId() {
         return id;
     }
@@ -46,5 +44,4 @@ public class Rol {
     public void setRolNombre(RolNombre rolNombre) {
         this.rolNombre = rolNombre;
     }
-    
-}
+};

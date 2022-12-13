@@ -21,5 +21,4 @@ public class UserDetailsImplement implements UserDetailsService {
         //de usuario
         return UsuarioPrincipal.build(usuario);
     }
-
 }
